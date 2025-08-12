@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/icon/logocemilancemilun.ico" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- AlpineJS -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+
+    <!-- <script src="../controller/adminController.js"></script> -->
+    <script src="../controller/kasController.js"></script>
+    <script src="../controller/logregController.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+        .font-family-karla { font-family: karla; }
+
+        body.swal2-shown > [aria-hidden='true'] {
+            transition: 0.1s filter;
+            filter: blur(200px);
+        }
+    </style>
+
+    <title>Document</title>
+</head>
+<body onload="showData()" class="flex font-family-karla">     
+    <aside class="relative bg-[#3d68ff] h-screen w-64 hidden sm:block shadow-xl">
+        <div class="p-6 text-center">
+            <a href="admin.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+                <img src="../images/logo_cemilan_cemilun-removebg-preview.png" alt="">
+            </a>
+           
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </div>
+    
+        <nav class="text-white text-base font-semibold pt-3">
+            <a href="admin.html" class="flex items-center bg-[#1947ee] text-white py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            <a href="organisir.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-sticky-note mr-3"></i>
+                Organisir
+            </a>
+            <a href="transaksi.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-table mr-3"></i>
+                Transaksi
+            </a>
+            <a href="users.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-users mr-3"></i>
+                Manage Users
+            </a>
+        </nav>
+    </aside>
+
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+        <!-- Desktop Header -->
+        <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+            <div class="w-1/2"></div>
+            <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+                <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-2 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                    <img class="p-2" src="https://cdn-icons-png.flaticon.com/128/3059/3059518.png">
+                </button>
+                <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                    <a href="profile.html" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Account</a>
+                    <button id="logout" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Header & Nav -->
+        <header x-data="{ isOpen: false }" class="w-full bg-[#3d68ff] py-5 px-6 sm:hidden">
+            <div class="flex items-center justify-between">
+                <a href="admin.html" class=" hover:text-gray-300 w-12">
+                    <img src="../images/logo_cemilan_cemilun-removebg-preview.png" alt="">                   
+                </a>
+                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                    <i x-show="!isOpen" class="fas fa-bars"></i>
+                    <i x-show="isOpen" class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Dropdown Nav -->
+            <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
+                <a href="admin.html" class="flex items-center bg-[#1947ee] text-white py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="organisir.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-sticky-note mr-3"></i>
+                    Organisir
+                </a>
+                <a href="transaksi.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-table mr-3"></i>
+                    Transaksi
+                </a> 
+                <a href="users.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-users mr-3"></i>
+                    Manage Users
+                </a>  
+                <a href="profile.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-user mr-3"></i>
+                    My Account
+                </a>
+                <button id="logout" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Sign Out
+                </button>                
+            </nav>           
+        </header>
+    
+        <div class="w-full overflow-x-hidden border-t flex flex-col">
+            <main class="w-full flex-grow p-6">
+                <h1 class="text-3xl text-black pb-6">Dashboard</h1>
+    
+                <div class="mt-6">                   
+                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
+                        <canvas id="line-chart"></canvas>
+                    </div>
+                </div>
+
+                <button class="btnAddKas inline-block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none  active:text-indigo-500">
+                    Tambah Rekapan          
+                </button>
+                <div class="w-full mt-12">
+                    <p class="text-xl pb-3 items-center uppercase">Rekap</p>                    
+                    <div id="data" class="bg-white ">
+                        <!-- show kas -->
+                    </div>
+                </div>
+            </main>    
+        </div>        
+    </div>
+
+    <!-- modal Add Kas -->
+    <div id="modalAddKas" class="relative justify-center hidden">
+        <div class="modal-content fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>                    
+
+                <div class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-[#F8F7F4] rounded-lg shadow-xl  sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
+                    <h3 class="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                        Tambah Rekapan
+                    </h3>                                
+
+                    <form id="formSubmit" class="mt-4">                        
+                        <label class="text-sm text-gray-700 ">
+                            Tanggal
+                        </label>
+
+                        <label class="block mt-3">
+                            <input type="date" name="tanggal" id="tanggalDataKas" placeholder="Tanggal Berapa??" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                        </label>                                                       
+
+                        <div class="mt-4 sm:flex sm:items-center sm:-mx-2">
+                            <button type="button" class="cancelAddKas w-full px-4 py-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:w-1/2 sm:mx-2  dark:border-gray-700 hover:bg-red-600 hover:text-white focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                Cancel
+                            </button>
+
+                            <button type="button" value="" class="addKas w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                                Tambah
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- modal tambah data kas -->
+    <div id="modalAddDataKas" class="relative justify-center hidden">
+        <div class="modal-content fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>
+                <div class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-[#F8F7F4] rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
+                    <h3 class="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                        Tambah Data Rekap
+                    </h3>
+                    <form class="mt-4" id="formAddDataKas">
+                        <input type="hidden" id="modal_data_id" value="" />
+                        <label class="text-sm text-gray-700">
+                            Nama Product
+                        </label>
+                        <label class="block mt-3">
+                            <input type="text" name="nama_product" id="nama_product" placeholder="Masukkan nama Product" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:focus:border-blue-300" />
+                        </label>
+                        <label class="text-sm text-gray-700 ">
+                            Tanggal
+                        </label>
+                        <label class="block mt-3">
+                            <input type="date" name="tanggal" id="tanggal" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:focus:border-blue-300" />
+                        </label>
+                        <label class="text-sm text-gray-700 ">
+                            Qty
+                        </label>
+                        <label class="block mt-3">
+                            <input type="text" name="qty_sold" id="qty_sold" placeholder="Masukkan qty terjual" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:focus:border-blue-300" />
+                        </label>
+                        <label class="text-sm text-gray-700 ">
+                            Income
+                        </label>
+                        <label class="block mt-3">
+                            <input type="text" name="income" id="income" placeholder="Masukkan harga pendapatan" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:focus:border-blue-300" />
+                        </label>
+                        <div class="mt-4 sm:flex sm:items-center sm:-mx-2">
+                            <button type="button" class="cancelAddDataKas w-full px-4 py-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:w-1/2 sm:mx-2 dark:border-gray-700 hover:bg-red-600 hover:text-white focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                Cancel
+                            </button>
+                            <button type="button" class="addDataKas w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                                Tambah
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal edit data kas -->
+    <div id="modalEditDataKas" class="modalEditDataKas relative justify-center">
+        
+    </div>
+
+    <script>
+        $(document).on('click', '.cancelAddDataKas', function() {
+            $("#modalAddDataKas").hide();
+        });
+
+        new Chart(document.getElementById("line-chart"), {
+			type : 'line',
+			data : {
+				labels : [ "january", "februari",  "Maret",  "April",  "Mei",  "Juni",
+                "Juli",  "Agustus",  "September",  "Oktober",  "November",  "Desember" ],
+				datasets : [
+						{
+							data : [ 0, 125, 100, 600,700, 543, 120, 900, 755, 498, 361, 599, ],
+							label : "Income",
+							borderColor : "#3cba9f",
+							fill : false
+						},
+						{
+							data : [ 0, 333, 222, 443,234, 123, 456, 567, 678, 345, 567, 789, ],
+							label : "Outcome",
+							borderColor : "#e43202",
+							fill : false
+						} ]
+			},
+			options : {
+				scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 1000,
+                        ticks: {
+                            stepSize: 100,
+                            callback: function(value, index, values) {
+                                return value + ' K'; // Add 'units' as suffix
+                            }
+                        }
+                    }
+                }
+			}
+		});
+    </script>
+</body>
+</html>

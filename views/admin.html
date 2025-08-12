@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="../controller/adminController.js"></script>
+    <script src="../controller/logregController.js"></script>
+
+    <title>Document</title>
+</head>
+<body onload="showData()">
+    <nav x-data="{ isOpen: false }" class="fixed w-full bg-white shadow dark:bg-white z-50">
+        <div class="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+            <div class="flex items-center justify-between">
+                <a href="admin.html">
+                    <img class="w-auto h-6 sm:h-7" src="../../desain/assets/logo cemilan cemilun.jpg" alt="">
+                </a>    
+                <!-- Mobile menu button -->
+                <div class="flex lg:hidden">
+                    <button x-cloak @click="isOpen = !isOpen" type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
+                        <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+                        </svg>
+                
+                        <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+            <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-white md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center">
+                <div class="flex flex-col md:flex-row md:mx-6">
+                    <a class="my-2 text-blue-500 transition-colors duration-300 transform md:mx-4 md:my-0" href="admin.html">Organisir</a>
+                    <a class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="kas.html">Kas</a>
+                    <button id="logout" class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-red-700 md:mx-4 md:my-0">logout</button>
+                    <!-- <a class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Contact</a>
+                    <a class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">About</a> -->
+                </div>
+            </div>
+        </div>
+    </nav> 
+
+    <div class="overflow-x-auto">
+        <table class="lg:mt-20 min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+        <thead class="text-left rtl:text-right">
+            <tr>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ID</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Gambar</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Nama</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Jenis</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Stock</th>
+            <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Harga</th>
+            <th class="px-4 py-2">Action</th>
+            </tr>
+        </thead>
+
+        <button type="button" class="btn_tambah mt-16 flex items-center rounded py-1.5 px-2 text-sm text-blue-600 transition-colors duration-300 hover:text-blue-400 focus:outline-none dark:text-blue-400 dark:hover:text-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+
+            <span class="mx-2">Tambah Product</span>
+        </button>
+            
+        <tbody id="data" class="divide-y item divide-gray-200">         
+            <!-- show data product-->
+        </tbody>
+        </table>
+
+        <!-- modal edit product -->
+        <div id="modalEdit" class="modal relative justify-center">
+            <!-- dinamic data -->
+        </div>
+
+        <div id="modalAdd" class="relative justify-center hidden">
+            <div class="modal-content fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                    <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>                    
+    
+                    <div class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-[#F8F7F4] rounded-lg shadow-xl  sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
+                        <h3 class="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                            Tambah Data Product
+                        </h3>                                
+
+                        <form id="formSubmit" enctype="multipart/form-data" class="mt-4">
+                            <label class="text-sm text-gray-700 ">
+                                Gambar
+                            </label>
+    
+                            <label class="block mt-3">
+                                <input type="file" name="gambar_barang" id="gambar_input" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                            </label> 
+
+                            <label class="text-sm text-gray-700 ">
+                                Nama Product
+                            </label>
+    
+                            <label class="block mt-3">
+                                <input type="text" name="nama_barang" id="nama_input" placeholder="Masukkan nama barang" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                            </label>  
+                            
+                            <label class="text-sm text-gray-700 ">
+                               Jenis
+                            </label>
+    
+                            <label class="block mt-3">
+                                <select type="text" name="jenis" id="jenis_input" placeholder="Masukkan jenis barang" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600   dark:focus:border-blue-300"> 
+                                    <option class="text-gray-300">Gorengan</option>
+                                    <option class="text-gray-300">Minuman</option>
+                                    <option class="text-gray-300">Frozen Food</option>
+                                </select>
+                            </label>  
+
+                            <label class="text-sm text-gray-700 ">
+                                Stock
+                            </label>
+    
+                            <label class="block mt-3">
+                                <input type="number" min="0" name="stock" id="stock_input" placeholder="Masukkan stock barang" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                            </label>  
+
+                            <label class="text-sm text-gray-700 ">
+                                Harga
+                            </label>
+    
+                            <label class="block mt-3">
+                                <input type="number" min="0" name="harga" id="harga_input" placeholder="Masukkan harga barang" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                            </label>                           
+    
+                            <div class="mt-4 sm:flex sm:items-center sm:-mx-2">
+                                <button type="button" class="cancelAdd w-full px-4 py-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:w-1/2 sm:mx-2  dark:border-gray-700 hover:bg-red-600 hover:text-white focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                    Cancel
+                                </button>
+    
+                                <button type="button" id="ppp" class=" w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                                    Tambah
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var modal = document.getElementById("modalEdit");
+            var modalAdd = document.getElementById("modalAdd");
+        
+            // tambah controller
+            $(document).on('click', '.btn_tambah', function() {  
+                $("#modalAdd").show();            
+            })
+
+            $(document).on('click', '.cancelAdd', function() {  
+                $("#modalAdd").hide();            
+            })
+
+            // edit controller
+            $(document).on('click', '.btn_edit', function() {  
+                $("#modalEdit").show();            
+            })
+            
+
+            $(document).on('click', '.cancelButton', function() {  
+                $("#modalEdit").hide();            
+            })
+
+            $(document).on('click', window, function(e){
+            if (e.target == modalAdd) {        
+                $("#modalEdit").hide();
+            }
+
+            if (e.target == modal) {        
+                $("#modalAdd").hide();
+            }
+            })    
+        </script>
+    
+</body>
+</html>

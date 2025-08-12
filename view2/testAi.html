@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baking with the Gemini API</title>  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+  <link rel="stylesheet" href="../testAI.css">
+  <script src="../script.js"></script>  
+</head>
+
+<body onload="showData()">
+  <main>
+    <!-- <h1>Slavery</h1> -->
+    <form id="geminiForm" method="POST">
+        <div id="menu" class="image-picker">
+          
+        </div>
+        <div class="prompt-box">
+          <label>
+            <input id="inputPrompt" name="prompt" placeholder="Enter instructions here" type="text"
+              value="apa nama hidangan diatas?">
+          </label>
+          <button type="submit">Go</button>
+        </div>
+      </form>
+      <p id="output">(Results will appear here)</p>      
+  </main>
+
+  <script type="module" src="../script.js"></script>
+</body>
+
+</html>

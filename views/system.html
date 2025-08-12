@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="../src/output.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../controller/db_config.js"></script>
+</head>
+<body onload="showData()">          
+    <ul>
+    <a href="../view2/add.html"><button class="add-data">Add New Product</button></a>
+        <li class="table-header">
+            <div class="col col-1">NO.</div>
+            <div class="col col-2">Nama</div>
+            <div class="col col-3">Jenis</div>
+            <div class="col col-4">Stock</div>
+            <div class="col col-5">Harga</div>
+            <div class="col col-6">Action</div>
+        </li>
+        <div class="data" id="index">
+
+        </div>
+    </ul>
+
+
+    <!-- Trigger/Open The Modal -->
+    <!-- <button id="myBtn" class="btn">Open Modal</button> -->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        
+         $(document).on('click', '.btn', function() {  
+            $("#myModal").show();            
+         })
+
+         $(document).on('click', '.close', function() {  
+            $("#myModal").hide();            
+         })
+
+         $(document).on('click', window, function(e){
+            if (e.target == modal) {        
+                $("#myModal").hide();
+            }
+         })                             
+    </script>
+</body>
+</html>

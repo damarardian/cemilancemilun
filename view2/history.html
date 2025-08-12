@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../images/icon/logocemilancemilun.ico" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- AlpineJS -->
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <!-- Font Awesome -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+    integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+
+  <script src="../controller/historyController.js"></script>
+  <script src="../controller/logregController.js"></script>
+  <script src="../controller/cartController.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+    .font-family-karla {
+      font-family: karla;
+    }
+  </style>
+
+
+  <title>Profile</title>
+</head>
+
+<body onload="showData()" class="font-family-karla">
+  <nav x-data="{ isOpen: false }" class=" bg-white shadow sticky top-0 z-50">
+    <div class="container px-6 py-4 mx-auto">
+      <div class="lg:flex lg:items-center lg:justify-between">
+        <div class="flex items-center justify-between">
+          <a href="index.html">
+            <img class="h-11 sm:h-7" src="../images/logo_cemilan_cemilun-removebg-preview.png" alt="">
+          </a>
+
+          <!-- Mobile menu button -->
+          <div class="flex lg:hidden">
+            <button x-cloak @click="isOpen = !isOpen" type="button"
+              class="text-gray-500  hover:text-gray-600  focus:outline-none focus:text-gray-600"
+              aria-label="toggle menu">
+              <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+              </svg>
+
+              <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+        <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
+          class=" absolute btnLogin inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+          <div hidden class="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+
+            <!-- loged in menu -->
+            <a href="index.html"
+              class="logedIn hidden px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 ">Home</a>
+          </div>
+
+          <!-- Loged in menu -->
+          <div x-data="{ isOpen: false }" class="logedIn hidden items-center mt-4 lg:mt-0">
+            <button onclick="showCart()"
+              class=" mx-4 text-gray-600 transition-colors duration-300 transform lg:block hover:text-gray-700 focus:text-gray-700 focus:outline-none"
+              aria-label="show notifications">
+              <img src="https://cdn-icons-png.flaticon.com/128/3144/3144456.png" alt="" width="25px">
+              <div id="notifBadge"
+                class="hidden absolute notifText items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                5</div>
+            </button>
+
+            <button @click="isOpen = !isOpen"
+              class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-2 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+              <img class="p-2" src="https://cdn-icons-png.flaticon.com/128/3059/3059518.png">
+            </button>
+            <button x-show="isOpen" @click="isOpen = false"
+              class=" h-full w-full fixed inset-0 cursor-default"></button>
+            <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-40">
+              <a href="profileUser.html" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Account</a>
+              <button id="logout" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Sign Out</button>
+            </div>
+          </div>
+
+          <!-- guest menu -->
+          <div x-data="{ isOpen: false }" class="flex guestMenu justify-center items-center mt-4 lg:mt-0">
+            <a class="inline-block rounded bg-indigo-600 mr-5 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
+              href="register.html">Sign Up</a>
+            <a class="inline-block rounded border border-current px-8 py-3 text-sm font-medium text-indigo-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+              href="login.html">Login</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div
+      class="w-full sm:max-w-sm md:max-w-md lg:max-w-2xl xl:max-w-2xl mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
+      <div class="rounded-t-lg h-32 overflow-hidden">
+        <img class="object-fill w-full" src='../images/bgProfile.png' alt='bgProfile'>
+      </div>
+      <div class="mx-auto w-32 h-32 relative -mt-16 rounded-full overflow-hidden">
+        <img class="object-cover object-center h-32" src='../images/logo_cemilan_cemilun-removebg-preview.png'
+          alt='Woman looking front'>
+      </div>
+      <div class="text-center mt-2">
+        <h2 class="font-semibold name"></h2>
+        <p class="text-gray-500 email"></p>
+      </div>
+      <main class="formPembelian hidden w-full flex-grow p-6">
+        <h1 class="text-3xl text-black text-center">History Pembelian</h1>
+        <div class=" bg-white p-8  lg:col-span-3 lg:p-12">
+
+
+          <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto">
+              <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="border divide-y divide-gray-200">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200\">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">ID
+                          </th>
+                          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                            Invoice</th>
+                          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Kurir
+                          </th>
+                          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                            Status</th>
+                          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">
+                            action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-200" id="tableShow">
+
+                        <!-- dinamic data -->
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="p-4 border-t mx-8 mt-2">
+        <button type="button"
+          class="showDataPembelian w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2">Lihat
+          Detail</button>
+        <button type="button"
+          class="hideDataPembelian w-1/2 mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2 hidden">Hide
+          Detail</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Tracking Paket -->
+  <div id="modalShowTrackingPackage" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-60 flex justify-center items-center p-4">
+      
+      <!-- Modal Box -->
+      <div class="relative w-full max-w-2xl transform rounded-xl bg-white text-left align-middle shadow-xl transition-all">
+          
+          <!-- Header Modal -->
+          <div id="trackingHeader" class="flex flex-col space-y-4 rounded-t-xl bg-gray-50 p-6">
+              <!-- Konten header akan diisi oleh JavaScript -->
+          </div>
+
+          <!-- Konten Linimasa -->
+          <div class="max-h-[60vh] overflow-y-auto p-6">
+              <div id="showDataTrackingPackage">
+                  <!-- Status Loading/Error akan ditampilkan di sini -->
+                  <div class="py-10 text-center">
+                      <p class="text-gray-500">Memuat riwayat pengiriman...</p>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Footer Modal -->
+          <div class="border-t border-gray-200 px-6 py-4">
+              <button type="button" class="cancelModalShowTrackingPackage w-full rounded-lg bg-gray-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
+                  Tutup
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal Detail Pesanan -->
+  <div id="modalShowOrders" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-60 flex justify-center items-center p-4">
+      
+      <div class="relative w-full max-w-lg transform rounded-xl bg-white text-left align-middle shadow-xl transition-all">        
+          <div class="border-b border-gray-200 bg-gray-50 p-6 rounded-t-xl">
+              <h3 class="text-lg font-semibold leading-6 text-gray-900">
+                  Detail Pesanan
+              </h3>
+              <p id="orderIdText" class="mt-1 text-sm text-gray-500">Memuat detail...</p>
+          </div>
+          
+          <div class="max-h-[60vh] overflow-y-auto p-6">
+              <div class="space-y-4" id="orderItemsContainer">
+                  <!-- Status Loading/Error atau daftar item akan ditampilkan di sini -->
+                  <div class="py-10 text-center">
+                      <p class="text-gray-500">Memuat item pesanan...</p>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="space-y-2 rounded-b-xl border-t border-gray-200 bg-gray-50 p-6">
+              <div class="flex justify-between text-sm font-medium text-gray-600">
+                  <span>Subtotal</span>
+                  <span id="subtotalAmount">Rp 0</span>
+              </div>
+              <div class="flex justify-between text-sm font-medium text-gray-600">
+                  <span>Ongkos Kirim</span>
+                  <span id="shippingAmount">Rp 0</span>
+              </div>
+              <div class="flex justify-between text-base font-semibold text-gray-900">
+                  <span>Total</span>
+                  <span id="totalAmount">Rp 0</span>
+              </div>
+          </div>
+        
+          <div class="border-t border-gray-200 px-6 py-4">
+              <button type="button" class="cancelAddShowOrders w-full rounded-lg bg-gray-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700">
+                  Tutup
+              </button>
+          </div>
+      </div>
+  </div>
+
+
+  <!-- Modal Cart -->
+  <div id="cartModal" class="hidden fixed top-4 right-4 z-50 bg-white rounded-lg overflow-hidden shadow-lg w-80">
+    <div class="flex justify-between items-center p-4 border-b">
+      <h3 class="text-lg font-semibold">Shopping Cart</h3>
+      <button id="closeCartModal" class="text-gray-600 hover:text-gray-800">&times;</button>
+    </div>
+    <div class="p-4">
+      <div id="cartItems" class="space-y-4">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+      <div id="total" class="mt-4 text-right">
+        <!-- Total price will be dynamically inserted here -->
+      </div>
+      <div class="mt-4 flex justify-between text-right">
+        <button id="deleteCart" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Hapus</button>
+        <button id="checkout" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Checkout</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

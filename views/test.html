@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chart JS Multiple Lines Example</title>
+<link rel='stylesheet' href='style.css' type='text/css' />
+</head>
+<body>
+    <div class="phppot-container">
+        <h1>Chart JS Multiple Lines Example</h1>
+        <div>
+            <canvas id="line-chart"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+    <script>
+        // Define custom labels for the Y axis
+        const customLabels = {
+            186: 'Low',
+            1321: 'Moderate',
+            2107: 'High',
+            3133: 'Very High',
+            4783: 'Extreme'
+        };
+
+        new Chart(document.getElementById("line-chart"), {
+            type : 'line',
+            data : {
+                labels : [ 1500, 1600, 1700, 1750, 1800, 1850,
+                        1900, 1950, 1999, 2050 ],
+                datasets : [
+                        {
+                            data : [ 186, 205, 1321, 1516, 2107,
+                                    2191, 3133, 3221, 4783, 5478 ],
+                            label : "America",
+                            borderColor : "#3cba9f",
+                            fill : false
+                        },
+                        {
+                            data : [ 1282, 1350, 2411, 2502, 2635,
+                                    2809, 3947, 4402, 3700, 5267 ],
+                            label : "Europe",
+                            borderColor : "#e43202",
+                            fill : false
+                        } ]
+            },
+            options : {
+                title : {
+                    display : true,
+                    text : 'Chart JS Multiple Lines Example'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 1000,
+                        ticks: {
+                            stepSize: 100,
+                            callback: function(value, index, values) {
+                                return value + 'Ribu'; // Add 'units' as suffix
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../images/icon/logocemilancemilun.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- AlpineJS -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+
+    <!-- <script src="../controller/adminController.js"></script> -->
+    <script src="../controller/usersController.js"></script>
+    <script src="../controller/logregController.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+        .font-family-karla { font-family: karla; }     
+
+        body.swal2-shown > [aria-hidden='true'] {
+            transition: 0.1s filter;
+            filter: blur(200px);
+        }
+    </style>
+
+    <title>Manage User</title>
+</head>
+<body onload="showData()" class="flex font-family-karla">     
+    <aside class="relative bg-[#3d68ff] h-screen w-64 hidden sm:block shadow-xl">
+        <div class="p-6 text-center">
+            <a href="admin.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+                <img src="../images/logo_cemilan_cemilun-removebg-preview.png" alt="">
+            </a>
+           
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </div>
+    
+        <nav class="text-white text-base font-semibold pt-3">
+            <a href="admin.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Dashboard
+            </a>
+            <a href="organisir.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-sticky-note mr-3"></i>
+                Organisir
+            </a>
+            <a href="transaksi.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 hover:bg-[#1947ee]">
+                <i class="fas fa-table mr-3"></i>
+                Transaksi
+            </a>
+            <a href="users.html" class="flex items-center text-white bg-[#1947ee] py-4 pl-6">
+                <i class="fas fa-users mr-3"></i>
+                Manage users
+            </a>             
+        </nav>
+    </aside>
+
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+      <!-- Desktop Header -->
+      <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex z-10">
+          <div class="w-1/2"></div>
+          <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+              <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-2 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                  <img class="p-2" src="https://cdn-icons-png.flaticon.com/128/3059/3059518.png">
+              </button>
+              <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
+              <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
+                  <a href="profile.html" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Account</a>
+                  <button id="logout" class="block px-4 py-2 hover:bg-[#3d68ff] hover:text-white">Sign Out</button>
+              </div>
+          </div>
+      </header>
+
+      <!-- Mobile Header & Nav -->
+      <header x-data="{ isOpen: false }" class="w-full bg-[#3d68ff] py-5 px-6 sm:hidden">
+          <div class="flex items-center justify-between">
+              <a href="admin.html" class=" hover:text-gray-300 w-12">
+                  <img src="../images/logo_cemilan_cemilun-removebg-preview.png" alt="">                   
+              </a>
+              <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                  <i x-show="!isOpen" class="fas fa-bars"></i>
+                  <i x-show="isOpen" class="fas fa-times"></i>
+              </button>
+          </div>
+
+          <!-- Dropdown Nav -->
+          <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
+              <a href="admin.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                  <i class="fas fa-tachometer-alt mr-3"></i>
+                  Dashboard
+              </a>
+              <a href="organisir.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                  <i class="fas fa-sticky-note mr-3"></i>
+                  Organisir
+              </a>
+              <a href="transaksi.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                  <i class="fas fa-table mr-3"></i>
+                  Transaksi
+              </a>  
+              <a href="users.html" class="flex items-center text-white bg-[#1947ee] py-2 pl-4">
+                <i class="fas fa-users mr-3"></i>
+                  Manage users
+              </a> 
+              <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                  <i class="fas fa-user mr-3"></i>
+                  My Account
+              </a>
+              <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 hover:bg-[#1947ee]">
+                  <i class="fas fa-sign-out-alt mr-3"></i>
+                  Sign Out
+              </a>                
+          </nav>           
+      </header>
+      
+      
+      <div class="w-full overflow-x-hidden border-t flex flex-col">                 
+        <div class="container max-w-full px-4 mx-auto sm:px-8">
+          <div class="py-8">
+            <div class="flex flex-row justify-between w-full mb-1 sm:mb-0">
+                <button id="addMember" class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200" type="submit">
+                    Tambah User
+                </button>
+                <div class="text-end">
+                    <form class="flex flex-col justify-center w-3/4 max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0">
+                        <div class=" relative ">
+                          <input type="text" id="keyword" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Cari Disini"/>
+                        </div>
+                        <button id="cari" class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 " type="submit">
+                            Cari
+                        </button>
+                      </form>
+                </div>
+            </div>
+            <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+                <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
+                    <table class="min-w-full leading-normal">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                    Nama
+                                </th>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                    Role
+                                </th>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                    Email
+                                </th>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                    Telepon
+                                </th>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                    verified
+                                </th>
+                                <th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+                                  Action
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="data_user">
+                            
+                          <!-- dinamic data -->
+                            
+                        </tbody>
+                    </table>
+                    <div class="flex flex-col items-center px-5 py-5 bg-white xs:flex-row xs:justify-between">
+                        <div  id="pagination" class="flex ">
+                            
+                            <!-- dinamic data -->
+
+                        </div>
+                    </div>
+                    
+
+
+                    <div id="modalAddMember" class="relative justify-center hidden">
+                        <div class="modal-content fixed inset-0 z-10 overflow-y-auto">
+                            <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>                    
+                
+                                <div class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-[#F8F7F4] rounded-lg shadow-xl  sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
+                                    <h3 class="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                                        Tambah Member
+                                    </h3>                                
+            
+                                    <form id="formSubmit" enctype="multipart/form-data" class="mt-4">
+                                        <label class="text-sm text-gray-700 ">
+                                            Nama
+                                        </label>
+                
+                                        <label class="block mt-3">
+                                            <input type="text" name="nama" id="nama_member" placeholder="Nama User" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                                        </label> 
+            
+                                        <label class="text-sm text-gray-700 ">
+                                            Role
+                                        </label>
+                
+                                        <label class="block mt-3">
+                                            <select type="text" name="role" id="role_member" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600   dark:focus:border-blue-300"> 
+                                                <option class="text-gray-300" selected>User</option>
+                                                <option class="text-gray-300">admin</option>
+                                            </select>
+                                        </label>  
+                                        
+                                        <label class="text-sm text-gray-700 ">
+                                           Email
+                                        </label>
+                
+                                        <label class="block mt-3">                                            
+                                            <input type="email" name="email_member" id="email_member" placeholder="Email Aktif" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                                        </label>  
+
+                                        <label class="text-sm text-gray-700 ">
+                                            Password
+                                         </label>
+                 
+                                         <label class="block mt-3">                                            
+                                             <input type="password" name="password_member" id="password_member" placeholder="Password" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                                         </label>
+            
+                                        <label class="text-sm text-gray-700 ">
+                                            Telepon
+                                        </label>
+                
+                                        <label class="block mt-3">
+                                            <input type="number" min="0" name="notelp" id="notelp" placeholder="Nomor Telepon" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300" />
+                                        </label>  
+            
+                                        <label class="text-sm text-gray-700 ">
+                                            verified
+                                        </label>
+                
+                                        <label class="block mt-3">
+                                            <select type="text" name="jenis" id="verifikasi" class="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600   dark:focus:border-blue-300"> 
+                                                <option id="tglSekarang" class="text-gray-300" value="2024-06-23">Ya</option>
+                                                <option class="text-gray-300" value="" selected>Tidak</option>                                                
+                                            </select>
+                                        </label>                           
+                
+                                        <div class="mt-4 sm:flex sm:items-center sm:-mx-2">
+                                            <button type="button" class="cancelAdd w-full px-4 py-2 text-sm font-medium tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md sm:w-1/2 sm:mx-2  dark:border-gray-700 hover:bg-red-600 hover:text-white focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                                                Cancel
+                                            </button>
+                
+                                            <button type="button" id="saveTambahMember" class=" w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                                                Tambah
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modalEditMember" class="relative justify-center hidden">
+                        <div class="modal-content fixed inset-0 z-10 overflow-y-auto">
+                            <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>                    
+                
+                                <div class="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-[#F8F7F4] rounded-lg shadow-xl  sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
+                                    <h3 class="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                                        Edit Member
+                                    </h3>                                
+            
+                                    <form id="formUpdate" class="formUpdateMember" enctype="multipart/form-data" class="mt-4">
+                                        
+                                        <!-- dinamic data -->
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>            
+          </div>
+      </div>  
+
+
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../src/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="../controller/indexController.js"></script>
+    <script src="../controller/logregController.js"></script>
+
+    <title>Document</title>
+</head>
+<body onload="showData()"  class="bg-[#FFF5EA]">
+    <nav x-data="{ isOpen: false }" class="fixed w-full bg-white shadow dark:bg-white z-50">
+        <div class="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+            <div class="flex items-center justify-between">
+                <a href="#">
+                    <img class="w-auto h-6 sm:h-7" src="../../desain/assets/logo cemilan cemilun.jpg" alt="">
+                </a>    
+                <!-- Mobile menu button -->
+                <div class="flex lg:hidden">
+                    <button x-cloak @click="isOpen = !isOpen" type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
+                        <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+                        </svg>
+                
+                        <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+            <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-white md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:flex md:items-center">
+                <div class="flex flex-col md:flex-row md:mx-6">
+                  <a class="my-2 text-blue-500 transition-colors duration-300 transform md:mx-4 md:my-0" href="admin.html">Home</a>
+                  <a class="loginBtn my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="login.html">Login</a>
+                  <button id="logout" class="hidden my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-red-700 md:mx-4 md:my-0">Logout</button>
+                    <!-- <a class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">Contact</a>
+                    <a class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-700 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="#">About</a> -->
+                </div>
+            </div>
+        </div>
+    </nav>    
+
+    <!-- banner -->
+    <section class="bg-[url('../images/bg2.jpeg')] bg-no-repeat bg-cover">
+      <div class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
+        <div class="mx-auto max-w-5xl text-center">
+          <h1 class="text-xl font-extrabold sm:text-5xl"> Looking For Something Yummyy??.
+            <strong class="font-extrabold text-red-700 sm:block"> Search here!! </strong>
+          </h1>    
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <input id="search-input" type="text" autocomplete="off" class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-orange-700 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="Yummyy">    
+            <button id="search-button" class="flex gap-10 w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+              <img src="../images/icon/magnifying-glass.png" width="20px" alt="">
+            </button>    
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- special offers -->
+  <section class="w-full mx-auto  flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width:1600px; height: 32rem; background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+    <div class="container mx-auto">
+  
+      <div class="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide">
+        <h1 class="text-black text-2xl ">Special Offers</h1>
+        <p class="text-black text-xl my-2">Beli 2 pack piscok gratis 1 pack dimsum</p>
+        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">Beli</a>
+  
+      </div>
+  
+      </div>
+  
+  </section>
+
+   <!-- menu -->
+  <div class="bg-white grid grid-cols-1 lg:grid-cols-3 lg:gap-8 h-screen border">
+
+      <!-- categories -->
+      <div class="h-screen bg-gray-200 w-full">            
+          <div class="flex flex-col justify-around items-center h-full">             
+              <button class="category-btn flex justify-center items-center gap-3 rounded bg-indigo-600 w-1/2 py-7 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" href="#" data-category="all"><img src="../images/fast-food.png" width="50px" alt=""> <p class="text-2xl">Semuanya</p> </button>
+              <button class="category-btn flex justify-center items-center gap-3 rounded bg-indigo-600 w-1/2 py-7 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" href="#" data-category="Gorengan"><img src="../images/cooking.png" width="50px" alt=""> <p class="text-2xl">Gorengan</p> </button>
+              <button class="category-btn flex justify-center items-center gap-3 rounded bg-indigo-600 w-1/2 py-7 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" href="#" data-category="Minuman"><img src="../images/cocktail.png" width="50px" alt=""> <p class="text-2xl">Minuman</p> </button>
+              <button class="category-btn flex justify-center items-center gap-3 rounded bg-indigo-600 w-1/2 py-7 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" href="#" data-category="Frozen Food"><img src="../images/fridge.png" width="50px" alt=""> <p class="text-2xl">Frozen Food</p></button>                                
+          </div>
+      </div>
+
+      <!-- ALL menu -->
+      <div class="rounded-lg lg:col-span-2 h-screen overflow-auto w-">
+          <div id="index" class="flex flex-wrap w-full gap-y-10 justify-evenly">
+              <!-- Products will be dynamically inserted here -->                                        
+          </div>
+      </div>
+  </div>
+  
+  <!-- slogan -->
+  <div class="w-full h-[70vh]"></div>
+
+  <!-- footer -->
+  <footer class="bg-white lg:grid lg:grid-cols-5">
+      <div class="relative block h-32 lg:col-span-2 lg:h-full">
+          <div class="relative w-full h-96">
+              <iframe class="absolute top-0 left-0 w-full h-full"
+                  src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d8622.21876649433!2d106.71297449368413!3d-6.329624951485899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sid!2sid!4v1716114999552!5m2!1sid!2sid"
+                  loading="lazy"></iframe>
+          </div>
+      </div>
+
+      <div class="max-w-screen-xl px-4 py-16 sm:px-6 lg:col-span-3 lg:px-8">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <div>
+            <span class="text-2xl mt-7 font-medium text-gray-900 hover:opacity-75 sm:text-3xl"> Contact Us </span> 
+            <div class="flex gap-4 mt-5">                
+              <img src="../images/whatsapp.png" width="40px" alt="">     
+              <a href="https://wa.me/085179857083" class="block text-2xl uppercase tracking-wide text-gray-500">
+                0895-0000-0000
+              </a>
+            </div>
+            <div class="flex gap-4 mt-5">                
+              <img src="../images/instagram.png" width="40px" alt="">     
+              <a href="./notFound.html" class="block text-2xl uppercase tracking-wide text-gray-500">
+                @Cemilan_Cemilun
+              </a>
+            </div> 
+            <ul class="mt-8 space-y-1 text-sm text-gray-700">
+              <li>Senin - Jumat: 10.00 - 16.00</li>              
+            </ul>                                     
+          </div>
+    
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+                  <!-- grid tengah -->
+            <div>
+              <!-- grid kanan -->
+            </div>
+          </div>
+        </div>
+      </div>
+  </footer>    
+  
+  <!-- Modal Cart -->
+  <div id="cartModal" class="hidden fixed top-4 right-4 z-50 bg-white rounded-lg overflow-hidden shadow-lg w-80">
+      <div class="flex justify-between items-center p-4 border-b">
+          <h3 class="text-lg font-semibold">Shopping Cart</h3>
+          <button id="closeCartModal" class="text-gray-600 hover:text-gray-800">&times;</button>
+      </div>
+      <div class="p-4">
+          <div id="cartItems" class="space-y-4">
+              <!-- Cart items will be dynamically inserted here -->
+          </div>
+          <div id="total" class="mt-4 text-right">
+              <!-- Total price will be dynamically inserted here -->
+          </div>
+          <div class="mt-4 text-right">
+              <button id="checkout" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Checkout</button>
+          </div>
+      </div>
+  </div>
+    
+</body>
+</html>
+
+<!-- <div id="cartModal" class="hidden fixed top-4 right-4 z-50"> -->
