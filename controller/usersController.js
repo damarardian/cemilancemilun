@@ -10,7 +10,7 @@ function showData(){
   });
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/user?page=1", 
+    url: "https://cemilanv1.biz.id/api/user?page=1", 
     headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
     success: function (response) {
      
@@ -207,7 +207,7 @@ $(document).on('click','#cari', function(e){
 
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/user?keyword="+ keyword,     
+    url: "https://cemilanv1.biz.id/api/user?keyword="+ keyword,     
     headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
     success: function (response) {
       $("#data_user").empty();
@@ -299,7 +299,7 @@ $(document).on('click', '.btnEdit', function() {
   
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/user/"+id,
+    url: "https://cemilanv1.biz.id/api/user/"+id,
     headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
     success: function (response) {
       console.log(response)
@@ -400,7 +400,7 @@ $(document).on('click', '#saveUpdateMember', function(e){
   });
   $.ajax({
     type: "PUT",
-    url: "http://127.0.0.1:8000/api/user/update/"+id,
+    url: "https://cemilanv1.biz.id/api/user/update/"+id,
     headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
     dataType: "JSON",
     data: {
@@ -468,7 +468,7 @@ $(document).on('click', '#saveTambahMember', function(e){
   });
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/api/user/add",
+    url: "https://cemilanv1.biz.id/api/user/add",
     headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
     dataType: "JSON",
     data: {
@@ -522,7 +522,7 @@ $(document).on('click', '.btn_delete', function(e){
         $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         type: "DELETE",
-        url: "http://127.0.0.1:8000/api/user/delete/"+ id,
+        url: "https://cemilanv1.biz.id/api/user/delete/"+ id,
         success: function (response) {
             console.log(response)
             location.href = "../view2/users.html"

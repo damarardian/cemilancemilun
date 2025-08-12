@@ -30,7 +30,7 @@ function showData() {
   }
 
   $.ajax({
-      url: 'http://127.0.0.1:8000/api/market',
+      url: 'https://cemilanv1.biz.id/api/market',
       method: 'GET',
       success: function(data) {
           data.sort(function(a, b) {
@@ -123,7 +123,7 @@ function addToCart(id) {
         });
     } else {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/market/'+id,
+            url: 'https://cemilanv1.biz.id/api/market/'+id,
             method: 'GET',
             success: function(product) {
                 let productTotal = product[0].harga * qty;

@@ -13,7 +13,7 @@ function showData() {
         button: false
     });
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/market',
+        url: 'https://cemilanv1.biz.id/api/market',
         type: 'GET',
             success: function(res) {
                 console.log(res);
@@ -53,7 +53,7 @@ $(document).on('click', '.btn', function(e){
         console.log(data_id);       
         $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/market/"+ data_id,
+        url: "https://cemilanv1.biz.id/api/market/"+ data_id,
         // data: "data",
         // dataType: "dataType",
         success: function (response) {
@@ -117,7 +117,7 @@ $(document).on('click', '.btn_update', function(e){
 
     $.ajax({
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/market/update/"+ id_barang,
+        url: "https://cemilanv1.biz.id/api/market/update/"+ id_barang,
         contentType: 'application/json',
         data: JSON.stringify({ 
             id : id_barang,
@@ -141,7 +141,7 @@ $(document).on('click', '.btn_delete', function(e){
 
     $.ajax({
         type: "DELETE",
-        url: "http://127.0.0.1:8000/api/market/delete/"+ get_id,
+        url: "https://cemilanv1.biz.id/api/market/delete/"+ get_id,
         success: function (response) {
             console.log(response)
             if($('.btn_delete').click()) location.href = "../view2/index.html"
@@ -175,7 +175,7 @@ $(document).on('click', '.btn_delete', function(e){
     });
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/market/add',
+        url: 'https://cemilanv1.biz.id/api/market/add',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ 

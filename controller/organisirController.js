@@ -17,7 +17,7 @@ function showData() {
 
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-        url: 'http://127.0.0.1:8000/api/market/admin/organize',
+        url: 'https://cemilanv1.biz.id/api/market/admin/organize',
         method: 'GET',    
         success: function(data) {
          
@@ -80,7 +80,7 @@ $(document).on('click', '.btn_edit', function(e){
         $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         type: "GET",
-        url: "http://127.0.0.1:8000/api/market/"+ data_id,
+        url: "https://cemilanv1.biz.id/api/market/"+ data_id,
         success: function (response) {
             console.log(response);
             var modalOutput = document.getElementById("modalEdit");
@@ -198,7 +198,7 @@ $(document).on('click', '#ppp', function(e){
 
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-        url: 'http://127.0.0.1:8000/api/market/add',
+        url: 'https://cemilanv1.biz.id/api/market/add',
         method: 'POST',
         processData: false,
         contentType: false,
@@ -246,7 +246,7 @@ $(document).on('click', '.btn-update', function(e){
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         type: "POST",
-        url: "http://127.0.0.1:8000/api/market/update/"+ id_barang,
+        url: "https://cemilanv1.biz.id/api/market/update/"+ id_barang,
         contentType: 'application/json',
         data: JSON.stringify({ 
             id : id_barang,
@@ -289,7 +289,7 @@ $(document).on('click', '.btn_delete', function(e){
             $.ajax({
             headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
             type: "DELETE",
-            url: "http://127.0.0.1:8000/api/market/delete/"+ data_id,
+            url: "https://cemilanv1.biz.id/api/market/delete/"+ data_id,
             success: function (response) {
                 console.log(response)
                 location.href = "../view2/organisir.html"

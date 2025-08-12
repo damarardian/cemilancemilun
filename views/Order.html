@@ -111,7 +111,7 @@
 <script>
     function showData(){
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/provinsi',
+            url: 'https://cemilanv1.biz.id/api/provinsi',
             method: 'GET',
             dataType: 'json',                     
             success: function(data) {
@@ -131,7 +131,7 @@
         console.log(id_province)
         
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/provinsi/kota/'+id_province,
+            url: 'https://cemilanv1.biz.id/api/provinsi/kota/'+id_province,
             method: 'GET',
             dataType: 'json',                     
             success: function(data) {

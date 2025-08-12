@@ -37,7 +37,7 @@ $(document).on('click', '#register', function (e) {
     
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8000/api/register",        
+        url: "https://cemilanv1.biz.id/api/register",        
         dataType: "JSON",
         data: {
             "email": email,
@@ -87,7 +87,7 @@ $(document).on('click', '#login', function (e) {
 
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/api/login",        
+    url: "https://cemilanv1.biz.id/api/login",        
     dataType: "JSON",
     data: {
       "email": email,            
@@ -119,7 +119,7 @@ $(document).on('click', '#logout', function (e) {
     token = window.localStorage.getItem('setToken');
     
     $.ajax({        
-        url: "http://127.0.0.1:8000/api/logout",        
+        url: "https://cemilanv1.biz.id/api/logout",        
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
@@ -160,7 +160,7 @@ $(document).on('click', '#forgot', function (e) {
 
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8000/api/password/email",        
+        url: "https://cemilanv1.biz.id/api/password/email",        
         method: 'POST',
         data: {                  
             "email": email,            
@@ -194,7 +194,7 @@ $(document).on('click', '#btnAccount', function(e) {
   e.preventDefault();
    $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/profile",
+    url: "https://cemilanv1.biz.id/api/profile",
     headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
     
       success: function (response) {

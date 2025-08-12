@@ -37,7 +37,7 @@ function showData() {
   var idInput = 0;
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/market',
+        url: 'https://cemilanv1.biz.id/api/market',
         method: 'GET',
         success: function(data) {      
 
@@ -154,7 +154,7 @@ function cari(){
 
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/cari-produk?keyword="+word,  
+        url: "https://cemilanv1.biz.id/api/cari-produk?keyword="+word,  
         success: function (response) {
             console.log(response);
             $('#index').empty(); 
@@ -236,7 +236,7 @@ function addToCart(id) {
             });
         } else {
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/market/'+id,
+                url: 'https://cemilanv1.biz.id/api/market/'+id,
                 method: 'GET',
                 success: function(product) {
                     let productTotal = product[0].harga * qty;

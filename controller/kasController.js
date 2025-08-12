@@ -18,7 +18,7 @@ function showData() {
     });
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/kas',
+        url: 'https://cemilanv1.biz.id/api/kas',
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         method: 'GET',
 
@@ -123,7 +123,7 @@ function showData() {
                 $.ajax({
                     type: "GET",
                     headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-                    url: "http://127.0.0.1:8000/api/data-kas/" + data_id,
+                    url: "https://cemilanv1.biz.id/api/data-kas/" + data_id,
                     success: function(response) {
                         var tbody = parentDiv.find(`#showRekap-${data_id}`);
                         var noDataMessage = parentDiv.find('.no-data-message');
@@ -241,7 +241,7 @@ $(document).on('click', '.addDataKas', function(e) {
 
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-        url: 'http://127.0.0.1:8000/api/data-kas/add',
+        url: 'https://cemilanv1.biz.id/api/data-kas/add',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ 
@@ -299,7 +299,7 @@ $(document).on('click', '.addKas', function(e) {
 
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-        url: 'http://127.0.0.1:8000/api/kas/add',
+        url: 'https://cemilanv1.biz.id/api/kas/add',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ 
@@ -334,7 +334,7 @@ $(document).on('click', '.btn_editDataKas', function(e){
         $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         type: "GET",
-        url: "http://127.0.0.1:8000/api/data-kas/one/"+ data_id, 
+        url: "https://cemilanv1.biz.id/api/data-kas/one/"+ data_id, 
         success: function (response) {
             console.log(response);
             var modalOutput = document.getElementById("modalEditDataKas");
@@ -412,7 +412,7 @@ $(document).on('click', '.EditDataKas', function(e){
     $.ajax({
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/data-kas/update/"+ id,
+        url: "https://cemilanv1.biz.id/api/data-kas/update/"+ id,
         contentType: 'application/json',
         data: JSON.stringify({ 
             data_id : data_id,
@@ -455,7 +455,7 @@ $(document).on('click', '.btn_deleteDataKas', function(e){
             $.ajax({
                 headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
                 type: "DELETE",
-                url: "http://127.0.0.1:8000/api/data-kas/delete/"+ id,
+                url: "https://cemilanv1.biz.id/api/data-kas/delete/"+ id,
                 success: function (response) {
                     console.log(response)
                     if($('.btn_delete').click()) location.href = "../view2/admin.html"

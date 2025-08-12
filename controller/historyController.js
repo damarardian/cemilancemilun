@@ -31,7 +31,7 @@ function showData(){
 
   $.ajax({
       method : "GET",
-      url: "http://127.0.0.1:8000/api/profile",
+      url: "https://cemilanv1.biz.id/api/profile",
       headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
       success: function (response) {  
         console.log(response)
@@ -80,7 +80,7 @@ $(document).on('click', '.showDataPembelian', function (e) {
 
   $.ajax({
       headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-      url: 'http://127.0.0.1:8000/api/pembayaran',
+      url: 'https://cemilanv1.biz.id/api/pembayaran',
       type: 'GET',
       success: function(response) {            
           $('#tableShow').empty();
@@ -139,7 +139,7 @@ $(document).on('click', '.showTrackingPackage', function(e) {
 
     $.ajax({
         type: "POST",
-        url: 'http://127.0.0.1:8000/api/track-package/',
+        url: 'https://cemilanv1.biz.id/api/track-package/',
         headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
         data: {
             "courier": kurir,
@@ -272,7 +272,7 @@ $(document).on('click', '.showOrders', function(e) {
     $.ajax({
         type: "GET",
         headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
-        url: 'http://127.0.0.1:8000/api/pembayaran/orders/' + orderId,
+        url: 'https://cemilanv1.biz.id/api/pembayaran/orders/' + orderId,
         success: function(response) {
             container.empty();
             let subtotal = 0;

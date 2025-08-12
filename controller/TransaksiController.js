@@ -13,7 +13,7 @@ function showHistori() {
 
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/pembayaran",
+        url: "https://cemilanv1.biz.id/api/pembayaran",
         headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
         success: function (response) {
             console.log(response);
@@ -64,7 +64,7 @@ $(document).on('click', '.detail', function (e) {
     console.log(pembayaran_id)
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/pembayaran/orders/"+pembayaran_id,
+        url: "https://cemilanv1.biz.id/api/pembayaran/orders/"+pembayaran_id,
         headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
         success: function (response) {
             response.forEach(function (element){        
@@ -110,7 +110,7 @@ function showTransaksi() {
 
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/api/pembayaran/showall",
+        url: "https://cemilanv1.biz.id/api/pembayaran/showall",
         headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
         success: function (response) {
             console.log(response);
@@ -204,7 +204,7 @@ $(document).on('click', '.btnApprove', function (e) {
 
     $.ajax({
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/pembayaran/acc/" + id,
+        url: "https://cemilanv1.biz.id/api/pembayaran/acc/" + id,
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         contentType: "application/json",
         data: JSON.stringify({
@@ -253,7 +253,7 @@ $(document).on('click', '#tambahResi', function (e) {
 
     $.ajax({
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/resi/"+ id,
+        url: "https://cemilanv1.biz.id/api/resi/"+ id,
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         contentType: "application/json",
         data: JSON.stringify ({
@@ -266,7 +266,7 @@ $(document).on('click', '#tambahResi', function (e) {
 
     $.ajax({
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/pembayaran/acc/" + id,
+        url: "https://cemilanv1.biz.id/api/pembayaran/acc/" + id,
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         contentType: "application/json",
         data: JSON.stringify({
@@ -302,7 +302,7 @@ $(document).on('click', '.btnSelesai', function (e) {
 
     $.ajax({
         type: "PUT",
-        url: "http://127.0.0.1:8000/api/pembayaran/acc/" + id,
+        url: "https://cemilanv1.biz.id/api/pembayaran/acc/" + id,
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         contentType: "application/json",
         data: JSON.stringify({

@@ -72,7 +72,7 @@ function showOrderan(){
 
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/profile",
+    url: "https://cemilanv1.biz.id/api/profile",
     headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
     success: function (response) {
       console.log(response)
@@ -178,7 +178,7 @@ function showOrderan(){
 
   $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:8000/api/provinsi",
+    url: "https://cemilanv1.biz.id/api/provinsi",
     headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
     success: function (response) {
       console.log(response)
@@ -203,7 +203,7 @@ $(document).on('click', '#cancelPilihKurir', function(e){
 function showKota(){
   var id_province = $('#provinsi').find(":selected").val();
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/provinsi/kota/'+id_province,
+    url: 'https://cemilanv1.biz.id/api/provinsi/kota/'+id_province,
     method: 'GET',
     dataType: 'json',                     
     success: function(data) {
@@ -265,7 +265,7 @@ $(document).on('change', 'input[type=radio][name=kurir]', function(e){
 
   $.ajax({
     type: "POST",
-    url: "http://127.0.0.1:8000/api/ongkir",
+    url: "https://cemilanv1.biz.id/api/ongkir",
     headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
     contentType: 'application/json',
     data: JSON.stringify({ 
@@ -383,7 +383,7 @@ $(document).on('click', '#pembayaran', function(e) {
   
     $.ajax({
       type: "POST",
-      url: "http://127.0.0.1:8000/api/bayar",
+      url: "https://cemilanv1.biz.id/api/bayar",
       headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
       contentType: 'application/json',
       data: JSON.stringify({ 
@@ -402,7 +402,7 @@ $(document).on('click', '#pembayaran', function(e) {
 
         $.ajax({
           type: "POST",
-          url: "http://127.0.0.1:8000/api/pembayaran/order/add",
+          url: "https://cemilanv1.biz.id/api/pembayaran/order/add",
           headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
           contentType: "application/json",
           dataType: "json",

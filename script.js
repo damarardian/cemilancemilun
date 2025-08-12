@@ -130,7 +130,7 @@
 
 function showData() { 
   $.ajax({
-    url: 'http://127.0.0.1:8000/api/market',
+    url: 'https://cemilanv1.biz.id/api/market',
     method: 'GET',
     success: function (data) {
 

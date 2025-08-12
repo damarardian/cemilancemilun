@@ -32,7 +32,7 @@ function showData(){
 
   $.ajax({
       method : "GET",
-      url: "http://127.0.0.1:8000/api/profile",
+      url: "https://cemilanv1.biz.id/api/profile",
       headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
       success: function (response) {  
         console.log(response)
@@ -68,7 +68,7 @@ function showData(){
 function showDataAdmin(){   
   $.ajax({
       method : "GET",
-      url: "http://127.0.0.1:8000/api/profile",
+      url: "https://cemilanv1.biz.id/api/profile",
       headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
       success: function (response) {
         var role = response[0]['role'];    
@@ -122,7 +122,7 @@ $(document).on('click', '.ubahData', function (e) {
     
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/provinsi',
+        url: 'https://cemilanv1.biz.id/api/provinsi',
         method: 'GET',
         dataType: 'json',                     
         success: function(data) {                      
@@ -141,7 +141,7 @@ $(document).on('click', '.cancelUbah', function (e) {
 
     $.ajax({
         method : "GET",
-        url: "http://127.0.0.1:8000/api/profile",
+        url: "https://cemilanv1.biz.id/api/profile",
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         success: function (response) {
             $('.name').val(response[0]['name'])
@@ -212,7 +212,7 @@ $(document).on('click', '.saveUbah', function (e) {
 
     $.ajax({
         method : "PUT",
-        url: "http://127.0.0.1:8000/api/profile/update",
+        url: "https://cemilanv1.biz.id/api/profile/update",
         headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
         contentType: 'application/json',
         data: JSON.stringify({ 
@@ -242,7 +242,7 @@ function showKota(){
     let id_province = document.getElementById('Option1').value
     
     $.ajax({
-      url: 'http://127.0.0.1:8000/api/provinsi/kota/'+id_province,
+      url: 'https://cemilanv1.biz.id/api/provinsi/kota/'+id_province,
       method: 'GET',
       dataType: 'json',                     
       success: function(data) {
