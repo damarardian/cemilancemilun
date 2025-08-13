@@ -142,7 +142,9 @@ $(document).on('click', '.showTrackingPackage', function(e) {
         url: 'https://cemilanv1.biz.id/api/track-package',
         headers: { 
             "Authorization": "Bearer " + localStorage.getItem('setToken'),
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST",
+            "Access-Control-Allow-Headers" : "Origin, Content-Type, X-Auth-Token"
          },
         data: {
             "courier": kurir,
