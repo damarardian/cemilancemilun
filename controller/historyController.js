@@ -139,11 +139,8 @@ $(document).on('click', '.showTrackingPackage', function(e) {
 
     $.ajax({
         type: "POST",
-        url: 'https://cemilanv1.biz.id/api/track-package',
-        headers: { 
-            "Authorization": "Bearer " + localStorage.getItem('setToken'),
-            "Access-Control-Allow-Origin": "*" ,
-        },
+        url: 'https://cemilanv1.biz.id/api/track-package/',
+        headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
         data: {
             "courier": kurir,
             "awb": invoice
@@ -199,7 +196,7 @@ $(document).on('click', '.showTrackingPackage', function(e) {
                 });
                 trackingBody.html(timeline);
             } else {
-                trackingBody.html('<p class="py-10 text-center text-sm text-gray-500">Tidak ada riwayat pengiriman ditemukan.</p>');
+                trackingBody.html('<p class="py-10 text-center text-sm text-gray-500">Mohon Maaf Paket Anda Sedang Diproses🙏.</p>');
             }
         },
         error: function(xhr) {
