@@ -78,35 +78,48 @@ $(document).on('click', '.showDataPembelian', function (e) {
 
   
 
-  $.ajax({
-      headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
-      url: 'https://cemilanv1.biz.id/api/pembayaran',
-      type: 'GET',
-      success: function(response) {            
-          $('#tableShow').empty();
-          response.forEach(function(element) {  
-            angka++           
-              $('#tableShow').append(`
-                  <tr>                     
-                    <td class="px-6 py-4 formId whitespace-nowrap text-sm font-medium text-gray-800">${angka}</td>
-                    <td class="hidden px-6 py-4 formOngkir whitespace-nowrap text-sm font-medium text-gray-800">${element.ongkir}</td>
-                    <td class="px-6 py-4 formInvoice whitespace-nowrap text-sm text-gray-800">${element.invoice}</td>
-                    <td class="px-6 py-4 formKurir whitespace-nowrap text-sm text-gray-800">${element.kurir}</td>
-                    <td class="px-6 py-4 formStatus whitespace-nowrap text-sm text-gray-800">${element.status}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                      <button type="button" class="showOrders items-center text-sm font-semibold" value="${element.id}">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1557/1557311.png" width="25px" alt="">
-                      </button>
-                      
-                      <button type="button" class="showTrackingPackage items-center text-sm font-semibold" data-kurir="${element.kurir}" data-invoice="${element.no_resi}">
-                        <img src="https://cdn-icons-png.flaticon.com/512/15566/15566115.png" width="25px" alt="">
-                      </button>
-                    </td>
-                  </tr>      
-              `);
-          });
-      }
-  })
+    $.ajax({
+        headers: {"Authorization": "Bearer " + localStorage.getItem('setToken')},
+        url: 'https://cemilanv1.biz.id/api/pembayaran',
+        type: 'GET',
+        success: function(response) {
+            $('#tableShow').empty();
+            let angka = 0; 
+            response.forEach(function(element) {
+                angka++;
+                let trackingButtonHtml = '';
+                
+                if (element.status !== "Sedang Diperiksa" && element.status !== "Menunggu Pembayaran") {
+                    trackingButtonHtml = `
+                        <button type="button" class="showTrackingPackage items-center text-sm font-semibold ml-2" data-kurir="${element.kurir}" data-invoice="${element.no_resi}">
+                            <img src="https://cdn-icons-png.flaticon.com/512/15566/15566115.png" width="25px" alt="Lacak Paket">
+                        </button>
+                    `;
+                }
+
+                $('#tableShow').append(`
+                    <tr>
+                        <td class="px-6 py-4 formId whitespace-nowrap text-sm font-medium text-gray-800">${angka}</td>
+                        <td class="hidden px-6 py-4 formOngkir whitespace-nowrap text-sm font-medium text-gray-800">${element.ongkir}</td>
+                        <td class="px-6 py-4 formInvoice whitespace-nowrap text-sm text-gray-800">${element.invoice}</td>
+                        <td class="px-6 py-4 formKurir whitespace-nowrap text-sm text-gray-800">${element.kurir}</td>
+                        <td class="px-6 py-4 formStatus whitespace-nowrap text-sm text-gray-800">${element.status}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                            <button type="button" class="showOrders items-center text-sm font-semibold" value="${element.id}">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1557/1557311.png" width="25px" alt="Lihat Detail Pesanan">
+                            </button>
+                            
+                            ${trackingButtonHtml} 
+                            
+                        </td>
+                    </tr>
+                `);
+            });
+        },
+        error: function(xhr) {            
+            console.error("Gagal memuat data pembayaran:", xhr);
+        }
+    });
 });
 
 const courierLogos = {
