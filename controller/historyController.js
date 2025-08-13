@@ -139,7 +139,7 @@ $(document).on('click', '.showTrackingPackage', function(e) {
 
     $.ajax({
         type: "POST",
-        url: 'https://cemilanv1.biz.id/api/track-package/',
+        url: 'https://cemilanv1.biz.id/api/track-package',
         headers: { 
             "Authorization": "Bearer " + localStorage.getItem('setToken'),
             "Access-Control-Allow-Origin": "*"
