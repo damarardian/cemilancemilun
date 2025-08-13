@@ -196,7 +196,7 @@ $(document).on('click', '.showTrackingPackage', function(e) {
                 });
                 trackingBody.html(timeline);
             } else {
-                trackingBody.html('<p class="py-10 text-center text-sm text-gray-500">Tidak ada riwayat pengiriman ditemukan.</p>');
+                trackingBody.html('<p class="py-10 text-center text-sm text-gray-500">Mohon Maaf Paket Anda Sedang Diproses🙏.</p>');
             }
         },
         error: function(xhr) {
