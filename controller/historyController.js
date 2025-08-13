@@ -209,8 +209,8 @@ $(document).on('click', '.showTrackingPackage', function(e) {
             trackingHeader.html('');
             trackingBody.html(`
                 <div class="py-10 text-center">
-                    <p class="font-semibold text-red-600">Gagal Memuat Data</p>
-                    <p class="mt-1 text-sm text-gray-500">Tidak dapat terhubung ke server kurir. Silakan coba lagi nanti.</p>
+                    <p class="font-semibold text-red-600">Paket Belum Dikirim</p>
+                    <p class="mt-1 text-sm text-gray-500">Mohon tunggu hingga paket sudah dikirim oleh kami. Silakan coba lagi nanti.</p>
                 </div>
             `);
         }
