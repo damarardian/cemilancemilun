@@ -139,8 +139,11 @@ $(document).on('click', '.showTrackingPackage', function(e) {
 
     $.ajax({
         type: "POST",
-        url: 'https://cemilanv1.biz.id/api/track-package/',
-        headers: { "Authorization": "Bearer " + localStorage.getItem('setToken') },
+        url: 'https://cemilanv1.biz.id/api/track-package',
+        headers: { 
+            "Authorization": "Bearer " + localStorage.getItem('setToken'),
+            "Access-Control-Allow-Origin": "*" ,
+        },
         data: {
             "courier": kurir,
             "awb": invoice
@@ -275,6 +278,16 @@ $(document).on('click', '.showOrders', function(e) {
         url: 'https://cemilanv1.biz.id/api/pembayaran/orders/' + orderId,
         success: function(response) {
             container.empty();
+            
+            if (response.status === 'Sedang Diperiksa') {
+                container.html(`
+                <div class="py-10 text-center text-red-600">
+                    <p class="font-semibold">Gagal Memuat Data</p>
+                    <p class="text-sm text-gray-500 mt-1">Silakan coba lagi nanti.</p>
+                </div>
+            `);
+            }
+
             let subtotal = 0;
             
             // Asumsi ongkir didapat dari data pertama (jika ada)
